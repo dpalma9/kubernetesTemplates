@@ -1,0 +1,23 @@
+---
+kind: Pod
+apiVersion: v1
+metadata:
+    name: pod-nginx  # Idenfificador del objeto en Kubernetes/Openshift
+    labels:
+        app: nginx   # Viene a ser algo identificativo del objeto, pero no es un IDENTIFICADOR UNICO
+
+spec:
+    containers:
+        -   name: contenedor-nginx
+            image: nginx:latest
+            # ports:
+            #- containerPort: 80   
+            # Si no pongo esta linea de arriba... Puedo acceder al contenedor? SI   
+            #                                     Puedo acceder al puerto?     PERFECTAMENTE !
+            # Entonces para que vales esta linea? Informativa para Kubernetes... 
+            # Para cuando creemos el servicio  
+
+        -   name: contenedor-fedora
+            image: fedora:latest
+            command: ['sh', '-c', 'sleep 3600;']
+...

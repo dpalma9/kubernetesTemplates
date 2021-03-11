@@ -1,0 +1,33 @@
+---
+kind: Project
+apiVersion: project.openshift.io/v1
+metadata:
+  name: pruebas
+
+---
+kind: ResourceQuota
+apiVersion: v1
+metadata:
+    name: limit-pruebas
+    namespace: pruebas
+spec:
+  hard:
+    requests.cpu: "2" 
+    requests.memory: 2Gi
+      
+---
+kind: Project
+apiVersion: project.openshift.io/v1
+metadata:
+  name: produccion
+
+---
+kind: ResourceQuota
+apiVersion: v1
+metadata:
+    name: limit-pro
+    namespace: produccion
+spec:
+  hard:
+    requests.cpu: "4" 
+    requests.memory: 4Gi

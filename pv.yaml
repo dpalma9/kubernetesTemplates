@@ -1,0 +1,16 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv0002
+spec:
+  capacity:
+    storage: 100Gi   # Informativo
+  hostPath:
+    path: /mnt/pv-data/pv0002
+
+  accessModes:
+    - ReadWriteOnce
+    - ReadWriteMany
+    - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Recycle
+  volumeMode: Filesystem

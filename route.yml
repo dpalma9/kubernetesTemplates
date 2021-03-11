@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: Route
+metadata:
+  name: tomcat-route
+spec:
+  host: tomcat-svc
+  path: "/" 
+  to:
+    kind: Service
+    name: tomcat-svc

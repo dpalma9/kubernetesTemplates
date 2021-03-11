@@ -1,0 +1,24 @@
+kind: Pod
+apiVersion: v1
+metadata:
+    name: pod-solo-fedora  
+    labels:
+        app: fedora
+
+spec:
+    containers:
+        -   name: contenedor-fedora1
+            image: fedora:latest
+            command: ['sh', '-c', 'sleep 3600;']
+            volumeMounts:
+                - name: el-volumen-persistente-de-mi-pod
+                  mountPath: /volumen_persistente
+
+        -   name: contenedor-fedora2
+            image: fedora:latest
+            command: ['sh', '-c', 'sleep 3600;']
+    volumes:
+        - name: el-volumen-persistente-de-mi-pod
+          persistentVolumeClaim:
+            - claimName: peticion-volumen-fedora
+

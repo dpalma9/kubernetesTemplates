@@ -1,0 +1,10 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: peticion-volumen-fedora
+spec:
+  resources:
+    requests:
+      storage: 100Gi  
+  accessModes:
+    - ReadWriteOnce

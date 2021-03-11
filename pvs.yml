@@ -1,0 +1,27 @@
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: mariadb-pv
+  namespace: pruebas
+spec:
+  storageClassName: ""
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: tomcat-pv
+  namespace: pruebas
+spec:
+  storageClassName: ""
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain

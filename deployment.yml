@@ -1,0 +1,95 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb-deploy
+  namespace: pruebas
+  labels:
+    app: mariadb
+spec:
+  selector:
+    matchLabels:
+      app: mariadb
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+      - name: mariadb
+        image: mariadb
+        ports:
+        - containerPort: 3306
+          name: http
+          protocol: TCP
+        env:
+              - name: MYSQL_ROOT_PASSWORD
+                valueFrom: 
+                  secretKeyRef:
+                    name: mariadb-secret
+                    value: MYSQL_ROOT_PASSWORD
+              - name: MYSQL_DATABASE
+                valueFrom: 
+                  configMapKeyRef:
+                    name: mariadb-config
+                    value: MYSQL_DATABASE
+              - name: MYSQL_USER
+                valueFrom: 
+                  secretKeyRef:
+                    name: mariadb-secret
+                    value: MYSQL_USER
+              - name: MYSQL_PASSWORD
+                valueFrom: 
+                  secretKeyRef:
+                    name: mariadb-secret
+                    value: MYSQL_PASSWORD
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: "2"
+            memory: 2Gi
+          requests:
+            cpu: "1"
+            memory: 1Gi
+        volumeMounts:
+          - name: mariadb-vol
+            mountPath: /var/lib/mysql
+      volumes:
+        - name: mariadb-vol
+          persistentVolumeClaim:
+            claimName: mariadb-pvc
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-deploy
+  namespace: pruebas
+  labels:
+    app: tomcat
+spec:
+  selector:
+    matchLabels:
+      app: tomcat
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: tomcat
+    spec:
+      containers:
+      - name: tomcat
+        image: bitnami/tomcat
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        imagePullPolicy: Always
+        volumeMounts:
+          - name: tomcat-vol
+            mountPath: /var
+      volumes:
+        - name: tomcat-vol
+          persistentVolumeClaim:
+            claimName: tomcat-pvc

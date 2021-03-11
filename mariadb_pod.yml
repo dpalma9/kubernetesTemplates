@@ -1,0 +1,23 @@
+---
+kind: Pod
+apiVersion: v1
+metadata:
+    name: mariadb-pod
+    namespace: pruebas
+    labels:
+        app: mariadb
+spec:
+    containers:
+        -   name: mariadb-pod
+            image: mariadb:latest
+            ports:
+              - containerPort: 3306
+            env:
+              - name: MYSQL_ROOT_PASSWORD
+                value: passowrd1 
+              - name: MYSQL_DATABASE
+                value: midb
+              - name: MYSQL_USER
+                value: miusuario
+              - name: MYSQL_PASSWORD
+                value: password2
